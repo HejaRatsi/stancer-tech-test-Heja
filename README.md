@@ -39,6 +39,8 @@ Make sure you're using **Python 3.11** or higher.
    Then fill in the credentials:
    ```bash
    API_BASE_URL=http://localhost:8000
+   USERNAME=mdupuis
+   PASSWORD=111111
    ```
    Do not commit your .env file. Use .env.example to share the structure only.
    

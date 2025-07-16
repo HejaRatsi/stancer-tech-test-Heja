@@ -1,9 +1,19 @@
 from stancer.client import StancerClient
+import os
+from dotenv import load_dotenv
 
-if __name__ == '__main__':
+load_dotenv(override=True) #sinon utilisation des variables du systeme
+
+def main():
     print("Starting Stancer DSP2 client test")
 
-    client = StancerClient("mdupuis", "111111")
+    username = os.getenv("USERNAME")
+    password = os.getenv("PASSWORD")
+
+    print("USERNAME:", username)
+    print("PASSWORD:", password)
+
+    client = StancerClient(username, password)
 
     try:
         identity = client.get_identity()
@@ -23,3 +33,6 @@ if __name__ == '__main__':
     finally:
         client.close()
         print("Client closed")
+
+if __name__ == '__main__':
+    main()
