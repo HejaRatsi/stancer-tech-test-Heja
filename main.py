@@ -1,16 +1,25 @@
-# This is a sample Python script.
+from stancer.client import StancerClient
 
-# Press Maj+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    print("Starting Stancer DSP2 client test")
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    client = StancerClient("mdupuis", "111111")
+
+    try:
+        identity = client.get_identity()
+        print("Identity:", identity)
+
+        accounts = client.get_accounts()
+        print("Accounts:", accounts)
+
+        for account in accounts:
+            account_id = account["id"]
+            balance = client.get_balances(account_id)
+            print(f"Balance for {account_id}:", balance)
+
+            transactions = client.get_transactions(account_id)
+            print(f"Transactions for {account_id}:", transactions)
+
+    finally:
+        client.close()
+        print("Client closed")

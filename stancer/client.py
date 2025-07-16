@@ -2,6 +2,7 @@ import httpx
 import os
 from dotenv import load_dotenv
 
+load_dotenv()
 
 class StancerClient:
 
@@ -14,10 +15,18 @@ class StancerClient:
         self.client = httpx.Client(base_url=self.base_url)
 
     def authenticate(self):
-        res = self.client.post("/login", json={
+        data = {
+            "grant_type": "password",
             "username": self.username,
-            "password": self.password
-        })
+            "password": self.password,
+            "scope": "stet"
+        }
+
+        headers = {
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+
+        res = self.client.post("/oauth/token", data=data, headers=headers)
 
         if res.status_code == 200:
             self.token = res.json().get("access_token")
@@ -27,32 +36,33 @@ class StancerClient:
         else:
             raise Exception(f"Login failed: {res.status_code} - {res.text}")
 
+
     def get_identity(self):
         if not self.token:
             self.authenticate()
 
-        res = self.client.get("/identity")
+        res = self.client.get("/stet/identity")
         return res.json()
 
     def get_accounts(self):
         if not self.token:
             self.authenticate()
 
-        res = self.client.get("/accounts")
+        res = self.client.get("/stet/account")
         return res.json()
 
     def get_balances(self, account_id):
         if not self.token:
             self.authenticate()
 
-        res = self.client.get(f"/accounts/{account_id}/balances")
+        res = self.client.get(f"/stet/account/{account_id}/balance")
         return res.json()
 
     def get_transactions(self, account_id):
         if not self.token:
             self.authenticate()
 
-        res = self.client.get(f"/accounts/{account_id}/transactions")
+        res = self.client.get(f"/stet/account/{account_id}/transaction")
         return res.json()
 
     def close(self):
