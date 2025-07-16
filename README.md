@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Stancer DSP2 - Technical Test
 
 This project is a Python library designed to interact with the DSP2 API provided by Stancer (a tech subsidiary of the Free group), as part of a technical assessment.
