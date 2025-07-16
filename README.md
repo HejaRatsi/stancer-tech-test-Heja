@@ -40,8 +40,15 @@ Make sure you're using **Python 3.11** or higher.
    ```bash
    API_BASE_URL=http://localhost:8000
    ```
-   Do not commit your .env file, it must stay private. Use .env.example to share the structure only.
+   Do not commit your .env file. Use .env.example to share the structure only.
    
+## Run TEST 
+Unit tests are written using pytest and cover core functionality such as authentication and identity retrieval.
+1. Run test:
+   ```bash
+   pytest
+   ```
+
 
 ## Run the application 
    ```bash
